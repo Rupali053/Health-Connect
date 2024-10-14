@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Availability for <%= doctor.name %></title>
+    <link href="/css/style.css" rel="stylesheet" />
+    <style>
+      body {
+        background: linear-gradient(
+          135deg,
+          #6db3f2,
+          #1e61b2
+        ); /* Gradient background */
+        font-family: "Arial", sans-serif; /* Font family */
+        color: #333; /* Darker text color */
+        margin: 0; /* Remove default margin */
+        padding: 20px; /* Padding around the body */
+      }
+      .container {
+        min-height: 100vh; /* Full height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .appointment-card {
+        background: white; /* White background for the card */
+        padding: 2rem; /* Increased padding */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        width: 100%;
+        max-width: 600px; /* Max width for larger screens */
+      }
+      h2 {
+        font-size: 2.5em; /* Larger title */
+        color: #4caf50; /* Green color */
+        margin-bottom: 20px; /* Space below title */
+        text-align: center; /* Centered text */
+      }
+      label {
+        font-weight: bold; /* Bold labels */
+        margin-top: 20px; /* Space above labels */
+        display: block; /* Block display for labels */
+      }
+      .form-group {
+        margin-bottom: 1.5rem; /* Space between form groups */
+      }
+      select {
+        width: 100%; /* Full width */
+        padding: 10px; /* Padding inside the select */
+        border: 2px solid #4caf50; /* Green border */
+        border-radius: 5px; /* Rounded corners */
+        background-color: white; /* White background */
+        transition: border-color 0.3s; /* Smooth transition */
+      }
+      select:focus {
+        outline: none; /* Remove default outline */
+        border-color: #2e7d32; /* Darker green on focus */
+      }
+      textarea {
+        width: 100%; /* Full width */
+        padding: 10px; /* Padding inside the textarea */
+        border: 2px solid #4caf50; /* Green border */
+        border-radius: 5px; /* Rounded corners */
+        resize: none; /* Disable resizing */
+        transition: border-color 0.3s; /* Smooth transition */
+      }
+      textarea:focus {
+        outline: none; /* Remove default outline */
+        border-color: #2e7d32; /* Darker green on focus */
+      }
+      button {
+        width: 100%; /* Full width */
+        padding: 10px; /* Padding for button */
+        background-color: #4caf50; /* Green background */
+        color: white; /* White text */
+        border: none; /* No border */
+        border-radius: 5px; /* Rounded corners */
+        font-size: 1.2em; /* Larger font size */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: background-color 0.3s; /* Smooth transition */
+      }
+      button:hover {
+        background-color: #45a049; /* Darker green on hover */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="appointment-card">
+        <h2>Availability for <%= doctor.name %></h2>
+
+        <form action="/confirm-appointment" method="POST">
+          <input type="hidden" name="doctor" value="<%= doctor.name %>" />
+
+          <div class="form-group">
+            <label for="appointmentTime">Select Appointment Time</label>
+            <select name="appointmentTime" required>
+              <option value="">Choose a time</option>
+              <% availableTimes.forEach(function(time) { %>
+              <option value="<%= time %>">
+                <%= new Date(time).toLocaleString() %>
+              </option>
+              <% }); %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="diseaseDescription">Describe your condition</label>
+            <textarea
+              name="diseaseDescription"
+              rows="4"
+              placeholder="Please describe your symptoms..."
+            ></textarea>
+          </div>
+
+          <button type="submit">Book Appointment</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

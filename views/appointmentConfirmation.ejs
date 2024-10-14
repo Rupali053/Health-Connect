@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointment Confirmation</title>
+    <link href="/css/style.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #6e7f80, #b8c8cb);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+        overflow: hidden;
+      }
+      h1 {
+        font-size: 3em;
+        color: #4caf50;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      p {
+        font-size: 1.5em;
+        margin: 10px 0;
+        color: #333;
+      }
+      button {
+        background-color: #ff3b3b;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 100px;
+      }
+      button:hover {
+        background-color: #d32f2f;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Appointment Confirmed!</h1>
+      <p><strong>Doctor:</strong> <%= appointment.doctor %></p>
+      <p><strong>Date:</strong> <%= appointment.date.toLocaleDateString() %></p>
+      <p><strong>Time:</strong> <%= appointment.time %></p>
+      <p><strong>Description:</strong> <%= appointment.disease %></p>
+      <a href="/dashboard">
+        <button>Back To Dashboard</button>
+      </a>
+    </div>
+
+    <script>
+      // Function to launch confetti
+      function launchConfetti() {
+        var duration = 6 * 1000;
+        var end = Date.now() + duration;
+
+        var colors = ["#ff0a1f", "#0aff1f", "#00c8ff", "#ff8c00"]; // Confetti colors
+
+        (function frame() {
+          // Launch confetti
+          confetti({
+            particleCount: 5,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: colors,
+          });
+          confetti({
+            particleCount: 5,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: colors,
+          });
+
+          // Continue until the duration ends
+          if (Date.now() < end) {
+            requestAnimationFrame(frame);
+          }
+        })();
+      }
+
+      // Launch confetti on page load
+      window.onload = launchConfetti;
+    </script>
+  </body>
+</html>

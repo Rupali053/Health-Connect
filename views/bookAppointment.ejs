@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Appointment with <%= doctor.name %></title>
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div>
+      <h2>Book Appointment with Dr. <%= doctor.name %></h2>
+      <h3>Available Times</h3>
+      <ul>
+        <% availableTimes.forEach(time => { %>
+        <li><%= new Date(time).toLocaleString() %></li>
+        <% }) %>
+      </ul>
+      <form action="/confirm-appointment" method="POST">
+        <input type="hidden" name="doctor" value="<%= doctor.name %>" />
+
+        Add this hidden input for the selected disease
+        <input type="hidden" name="disease" value="<%= disease %>" />
+
+        <div>
+          <label for="appointmentTime">Choose Appointment Time</label>
+          <select name="appointmentTime" required>
+            <% availableTimes.forEach(time => { %>
+            <option value="<%= time %>">
+              <%= new Date(time).toLocaleString() %>
+            </option>
+            <% }) %>
+          </select>
+        </div>
+        <div>
+          <label for="notes">Additional Notes</label>
+          <textarea name="notes"></textarea>
+        </div>
+        <button type="submit">Confirm Appointment</button>
+      </form>
+      <% if (error_msg) { %>
+      <p class="error"><%= error_msg %></p>
+      <% } %>
+    </div>
+  </body>
+</html>
